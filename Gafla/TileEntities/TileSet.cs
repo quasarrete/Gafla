@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Gafla.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Gafla.Entities
+namespace Gafla.TileEntities
 {
     public class TileSet
     {
-        public List<Tile> Tiles { get; set; }
+        public Stack<Tile> Tiles { get; set; }
         private static readonly Random rng = new Random();
         public TileSet()
         {
-            Tiles = new List<Tile>();
+            Tiles = new Stack<Tile>();
             CreateSet();
         }
 
@@ -27,7 +28,7 @@ namespace Gafla.Entities
                     };
                     if (!SetHasDuplicates(tile))
                     {
-                        Tiles.Add(tile);
+                        Tiles.Push(tile);
                     }
                 }
             }
@@ -38,7 +39,7 @@ namespace Gafla.Entities
         {
             var endOne = newTile.EndOne;
             var endTwo = newTile.EndTwo;
-            foreach (var _ in Tiles.Where(tile => (tile.EndOne == endOne && tile.EndTwo == endTwo) || (tile.EndOne == endTwo && tile.EndTwo == tile.EndOne)).Select(tile => new { }))
+            foreach (var _ in Tiles.Where(tile => tile.EndOne == endOne && tile.EndTwo == endTwo || tile.EndOne == endTwo && tile.EndTwo == tile.EndOne).Select(tile => new { }))
             {
                 return true;
             }
@@ -47,9 +48,11 @@ namespace Gafla.Entities
         }
         public void ShuffleSet()
         {
-            Tiles = Tiles.OrderBy(a => rng.Next()).ToList();
+            var stackAsList = Tiles.ToList();
+            var listShuffled = stackAsList.OrderBy(a => rng.Next()).ToList();
+            Tiles = new Stack<Tile>(listShuffled);
         }
 
     }
-    
+
 }

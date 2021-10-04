@@ -1,29 +1,10 @@
-﻿using Gafla.Entities;
-using System;
-using System.Collections.Generic;
+﻿using Gafla.Gameplay;
 
-namespace Gafla
-{
-    class Program
+public class Program
     {
-        static void Main(string[] args)
-        {
-            CreateSet();
-        }
-
-        private static void CreateSet()
-        {
-            var set = new TileSet();
-            set.ShuffleSet();
-
-            Console.WriteLine("There are {0} tiles in this set",set.Tiles.Count);
-
-            foreach(var data in set.Tiles)
-            {
-                Console.WriteLine(data.ToString());
-            }
-
-        }
-
+    static void Main(string[] args)
+    {
+        new Class1().CreateSet();
+        
     }
 }
