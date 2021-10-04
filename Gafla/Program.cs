@@ -8,26 +8,22 @@ namespace Gafla
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
             CreateSet();
         }
 
         private static void CreateSet()
         {
-            var set = new List<Tile>();
+            var set = new TileSet();
+            set.ShuffleSet();
 
-            foreach(var data in set)
+            Console.WriteLine("There are {0} tiles in this set",set.Tiles.Count);
+
+            foreach(var data in set.Tiles)
             {
                 Console.WriteLine(data.ToString());
             }
 
         }
 
-        private static IList<Tile> CreateTileSet()
-        {
-            var tileSet = new List<Tile>();
-
-            return tileSet;
-        }
     }
 }

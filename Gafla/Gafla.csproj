@@ -8,6 +8,7 @@
   <ItemGroup>
     <Folder Include="Gameplay\" />
     <Folder Include="Rules\" />
+    <Folder Include="Tiles\" />
   </ItemGroup>
 
 </Project>

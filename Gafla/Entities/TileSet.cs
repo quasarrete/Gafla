@@ -1,38 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Gafla.Entities
 {
     public class TileSet
     {
-        public List<Tile> Tiles{ get; set; }
+        public List<Tile> Tiles { get; set; }
+        private static readonly Random rng = new Random();
         public TileSet()
         {
-
+            Tiles = new List<Tile>();
+            CreateSet();
         }
 
-        private static void CreateSet()
+        private void CreateSet()
         {
-            //Will go from 0 to 6, for now will have 36 tile, will need to implement check to remove duplicates.
-            for(int i=0; i<6; i++)
+            for (int i = 0; i < 7; i++)
             {
-                for(int j=0; j<6; j++)
+                for (int j = 0; j < 7; j++)
                 {
                     var tile = new Tile
                     {
-                        endOne = (Dots)i,
-                        endTwo = (Dots)j
+                        EndOne = (Dots)i,
+                        EndTwo = (Dots)j
                     };
+                    if (!SetHasDuplicates(tile))
+                    {
+                        Tiles.Add(tile);
+                    }
                 }
             }
-           
+
         }
 
-        private bool CheckDuplicates(Tile oldTile, Tile newTile)
+        private bool SetHasDuplicates(Tile newTile)
         {
+            var endOne = newTile.EndOne;
+            var endTwo = newTile.EndTwo;
+            foreach (var _ in Tiles.Where(tile => (tile.EndOne == endOne && tile.EndTwo == endTwo) || (tile.EndOne == endTwo && tile.EndTwo == tile.EndOne)).Select(tile => new { }))
+            {
+                return true;
+            }
 
             return false;
         }
+        public void ShuffleSet()
+        {
+            Tiles = Tiles.OrderBy(a => rng.Next()).ToList();
+        }
+
     }
+    
 }

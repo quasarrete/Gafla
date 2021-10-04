@@ -6,16 +6,12 @@ namespace Gafla.Entities
 {
     public class Tile
     {
-        public Dots endOne { get; set; }
-        public Dots endTwo { get; set; }
+        public Dots EndOne { get; set; }
+        public Dots EndTwo { get; set; }
 
         public override string ToString()
         {
-            var displayText = "";
-            displayText += endOne;
-            displayText += "\n";
-            displayText += endTwo;
-            return displayText;
+           return $@"|{EndOne}:{EndTwo}|";
 
         }
     }
