@@ -3,12 +3,30 @@ using Gafla.PlayerEntities;
 using Gafla.TileEntities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Gafla.Gameplay
 {
-    public class Class1
+    public class GamePlay
     {
+        public static int MAX_PLAYERS = 4;
+        public IList<Player> GamePlayers { get; set; }
+
+        public GamePlay()
+        {
+            GamePlayers = new List<Player>();
+        }
+
+        public void AddPlayer(string playerName)
+        {
+            if (GamePlayers.Count <= 4)
+            {
+                GamePlayers.Add(new Player
+                {
+                    Name = playerName,
+                    PlayerHand = new List<Tile>()
+                });
+            }
+        }
         public void CreateSet()
         {
             var player1 = new Player
@@ -42,10 +60,10 @@ namespace Gafla.Gameplay
 
             for (int i = 0; i < 7; i++)
             {
-                playerList[0].PlayerHand.Add(set.Tiles.Pop());
-                playerList[1].PlayerHand.Add(set.Tiles.Pop());
-                playerList[2].PlayerHand.Add(set.Tiles.Pop());
-                playerList[3].PlayerHand.Add(set.Tiles.Pop());
+                playerList[0].AddTile(set.Tiles.Pop());
+                playerList[1].AddTile(set.Tiles.Pop());
+                playerList[2].AddTile(set.Tiles.Pop());
+                playerList[3].AddTile(set.Tiles.Pop());
             }
 
             foreach (var player in playerList)
@@ -55,6 +73,8 @@ namespace Gafla.Gameplay
                 {
                     Console.WriteLine(hand.ToString());
                 }
+                player.TallyPoints();
+                Console.WriteLine("Points: {0}", player.Points);
             }
         }
     }

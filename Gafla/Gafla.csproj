@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Rules\" />
     <Folder Include="Tiles\" />
   </ItemGroup>
 
